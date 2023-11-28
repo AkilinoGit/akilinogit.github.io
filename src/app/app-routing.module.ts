@@ -19,7 +19,7 @@ const routes: Routes = [
     path: '*',
     redirectTo: 'home',
     pathMatch: 'full'
-  },
+},
   {
     path: 'user',
     loadChildren: () => import('./pages/user/user.module').then( m => m.UserPageModule)
