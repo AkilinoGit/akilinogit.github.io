@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { AuthService } from '../../services/authService';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.page.html',
@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminPage implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+  }
+  
+  logOut(){
+    this.authService.logout;
+    window.location.href = `/home`;
   }
 
 }
