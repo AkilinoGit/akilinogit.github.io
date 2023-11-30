@@ -25,6 +25,7 @@
     "@ethereumjs/util": "^9.0.1",
     "@ionic/angular": "^7.0.0",
     "@ionic/cordova-builders": "^10.0.0",
+    "@openzeppelin/contracts": "^5.0.0",
     "@types/ws": "^8.5.10",
     "bip39": "^3.1.0",
     "bitcore-mnemonic": "^10.0.17",
@@ -34,6 +35,7 @@
     "ionicons": "^7.0.0",
     "process": "^0.11.10",
     "rxjs": "~7.8.0",
+    "solc": "^0.8.19",
     "tslib": "^2.3.0",
     "web3": "^4.2.2",
     "zone.js": "~0.14.2"

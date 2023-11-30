@@ -1,15 +1,45 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>admin</ion-title>
+    <ion-title>ADMIN</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">ADMIN</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <ion-button expand="full" (click)="logOut()">LOG OUT</ion-button>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Define un nuevo préstamo</ion-card-title>
+    </ion-card-header>
+
+    
+      <form [formGroup]="definirForm" (ngSubmit)="definirPrestamo(definirForm.value)">
+
+        <ion-item >
+          <ion-label position="floating">Porcentaje Interes</ion-label>
+          <ion-input formControlName="porcentajeInteres"></ion-input>
+        </ion-item>
+        <ion-item >
+          <ion-label position="floating">Cantidad Prestada</ion-label>
+          <ion-input formControlName="cantidad"></ion-input>
+        </ion-item>
+        <ion-item >
+          <ion-label position="floating">Numero cuotas</ion-label>
+          <ion-input formControlName="cuotas"></ion-input>
+        </ion-item>
+        <ion-item >
+          <ion-label position="floating">Penalizacion Impago</ion-label>
+          <ion-input formControlName="penalizacionImpago"></ion-input>  
+        </ion-item>
+        <ion-button expand="block" type="submit">Definir</ion-button>
+      </form>
+    
+
+
+
+</ion-card>
+
+
+ 
+
+<ion-button expand="full" (click)="logOut()">LOG OUT</ion-button>
 </ion-content>

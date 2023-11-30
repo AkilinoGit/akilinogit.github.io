@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/authService';
+import { Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-user',
@@ -6,10 +9,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user.page.scss'],
 })
 export class UserPage implements OnInit {
+  window: any;
 
-  constructor() { }
+  constructor(@Inject(DOCUMENT) private document: Document,
+      private authService: AuthService) {
+      this.window = document.defaultView;
+      }
 
   ngOnInit() {
+
+
+  }
+
+  logOut(){
+    this.authService.logout;
+    window.location.href = `/home`;
   }
 
 }
