@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/authService';
-import { TxService } from 'src/app/services/txService';
+import { AuthServiceService } from 'src/app/auth-service.service';
+import { TxServiceService } from 'src/app/tx-service.service';
 import Web3 from 'web3';
 import { Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
@@ -22,18 +22,21 @@ export class AdminPage  {
 
 
   constructor(@Inject(DOCUMENT) private document: Document,
-              private authService: AuthService,
-              private txService: TxService,
+              private authService: AuthServiceService,
+              private txService: TxServiceService,
               private formBuilder: FormBuilder) { 
 
-    this.web3 = new Web3(authService.PROVIDER);
+    this.web3 = new Web3();
+   this.web3.setProvider(
+                  new this.web3.providers.HttpProvider('https://sepolia.infura.io/v3/d09825f256ae4705a74fdee006040903')
+                );
     this.window = document.defaultView;
     
     this.definirForm = formBuilder.group({
-      porcentajeInteres: "",
-      cantidad: "",
-      cuotas: "",
-      penalizacionImpago: ""
+      porcentajeInteres: "10",
+      cantidad: "1000",
+      cuotas: "10",
+      penalizacionImpago: "10"
     });
     
     this.factoryContract = new this.web3.eth.Contract(FACTORYABI.abi, authService.FACTORY);
@@ -41,23 +44,25 @@ export class AdminPage  {
   }
 
   ionViewWillEnter() {
-    /*if (this.authService.userAddress !== this.authService.OWNER) {
+    if (localStorage.getItem('userAddress') !== this.authService.OWNER) {
       this.window.location.href = "/home";
     } 
-    */
+    
   }
   
 
   definirPrestamo( sendData: any){
-    const method = this.factoryContract.methods.definirPrestamo(sendData.porcentajeInteres,
-              sendData.cantidad, sendData.cuotas, sendData.penalizacionImpago).encodeABI();
+    const method = this.factoryContract.methods.verTiposContrato().encodeABI();
+    //this.factoryContract.methods.definirPrestamo(sendData.porcentajeInteres,
+     //         sendData.cantidad, sendData.cuotas, sendData.penalizacionImpago).encodeABI();
 
     this.txService.makeTransaction(this.authService.FACTORY,0,method);
   }
   
-  logOut(){
-    this.authService.logout;
+ logOut(){
+    this.authService.deleteLogin;
     window.location.href = `/home`;
+     
   }
 
 }

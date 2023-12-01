@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/authService';
+import { AuthServiceService } from 'src/app/auth-service.service';
+import { TxServiceService } from 'src/app/tx-service.service';
 import { Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
@@ -12,7 +13,7 @@ export class UserPage implements OnInit {
   window: any;
 
   constructor(@Inject(DOCUMENT) private document: Document,
-      private authService: AuthService) {
+      private authService: AuthServiceService) {
       this.window = document.defaultView;
       }
 
@@ -22,7 +23,7 @@ export class UserPage implements OnInit {
   }
 
   logOut(){
-    this.authService.logout;
+    this.authService.deleteLogin;
     window.location.href = `/home`;
   }
 

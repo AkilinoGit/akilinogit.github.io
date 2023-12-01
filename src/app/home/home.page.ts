@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { AuthService } from '../services/authService';
+import { AuthServiceService } from 'src/app/auth-service.service';
 
 @Component({
   selector: 'app-home',
@@ -13,13 +13,13 @@ export class HomePage {
   window: any;
     
   
-  constructor(@Inject(DOCUMENT) private document: Document, private authService: AuthService) {
+  constructor(@Inject(DOCUMENT) private document: Document, private authService: AuthServiceService) {
     this.window = document.defaultView;
   }
 
  async loginMetamask() {
     await this.authService.loginMetamask();
-    const redirectUrl = this.redirectUrl(this.authService.userAddress);
+    const redirectUrl = this.redirectUrl(localStorage.getItem('userAddress'));
     window.location.href = redirectUrl;
   }
 
