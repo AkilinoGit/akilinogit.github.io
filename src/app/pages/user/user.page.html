@@ -10,5 +10,45 @@
       <ion-title size="large">user</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-card *ngFor="let prestamo of listaPrestamos; let i = index">
+    <ion-card-content  >
+      <ion-list>
+        <ion-item class = "small-item">
+          <ion-label>Cantidad</ion-label>
+          <ion-note>{{ prestamo.cantidad.toString() }}</ion-note>
+        </ion-item>
+
+        <ion-item class = "small-item">
+          <ion-label>Cuotas</ion-label>
+          <ion-note>{{ prestamo.cuotas.toString() }}</ion-note>
+        </ion-item>
+
+        <ion-item class = "small-item">
+          <ion-label>Deuda Total</ion-label>
+          <ion-note>{{ prestamo.deudaTotal.toString() }}</ion-note>
+        </ion-item>
+
+        <ion-item class = "small-item">
+          <ion-label>Índice</ion-label>
+          <ion-note>{{ prestamo.index.toString() }}</ion-note>
+        </ion-item>
+
+        <ion-item class = "small-item">
+          <ion-label>Penalización por Impago</ion-label>
+          <ion-note>{{ prestamo.penalizacionImpago.toString() }}</ion-note>
+        </ion-item>
+
+        <ion-item class = "small-item">
+          <ion-label>Porcentaje de Interés</ion-label>
+          <ion-note>{{ prestamo.porcentajeInteres.toString() }}</ion-note>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+
+    <ion-button class = "small-item">
+      <ion-button expand="full" (click)="contratarPrestamo()">CONTRATAR</ion-button>
+    </ion-button>
+  </ion-card>
   <ion-button expand="full" (click)="logOut()">LOG OUT</ion-button>
+  
 </ion-content>

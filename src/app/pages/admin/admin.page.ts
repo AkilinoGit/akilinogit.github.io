@@ -27,8 +27,8 @@ export class AdminPage  {
               private formBuilder: FormBuilder) { 
 
     this.web3 = new Web3();
-   this.web3.setProvider(
-                  new this.web3.providers.HttpProvider('https://sepolia.infura.io/v3/d09825f256ae4705a74fdee006040903')
+    this.web3.setProvider(
+                  new this.web3.providers.HttpProvider(this.authService.PROVIDER)
                 );
     this.window = document.defaultView;
     
@@ -52,10 +52,10 @@ export class AdminPage  {
   
 
   definirPrestamo( sendData: any){
-    const method = this.factoryContract.methods.verTiposContrato().encodeABI();
-    //this.factoryContract.methods.definirPrestamo(sendData.porcentajeInteres,
-     //         sendData.cantidad, sendData.cuotas, sendData.penalizacionImpago).encodeABI();
-
+   // const method = this.factoryContract.methods.verTiposContrato().encodeABI();
+   const method = this.factoryContract.methods.definirPrestamo(sendData.porcentajeInteres,
+              sendData.cantidad, sendData.cuotas, sendData.penalizacionImpago).encodeABI();
+  
     this.txService.makeTransaction(this.authService.FACTORY,0,method);
   }
   

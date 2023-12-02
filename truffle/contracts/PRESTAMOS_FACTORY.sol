@@ -48,7 +48,7 @@ contract PrestamosFactory {
 
     }
 
-    function verTiposContrato() public view onlyOwner returns (TipoContrato[] memory) {
+    function verTiposContrato() public view returns (TipoContrato[] memory) {
         return tiposContrato;
     }
 
