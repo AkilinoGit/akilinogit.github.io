@@ -10,7 +10,7 @@ export class AuthServiceService {
   //SEPOLIA
   
   public OWNER: string = "0x46ccd6c01296f9aa02a161b92b007e9ae7675e97"; 
-  public FACTORY = "0xe4f2f5b0671252d5a06a3dd8ac403b8a9f8e16b7";
+  public FACTORY = "0xB923D2bd7a380aa2aE59f678091F59654407AdAD";
   public PROVIDER = "https://sepolia.infura.io/v3/d09825f256ae4705a74fdee006040903";
   
   //GANACHE

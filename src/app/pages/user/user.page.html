@@ -1,54 +1,81 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>user</ion-title>
+  <ion-toolbar class="ion-text-center">
+      <ion-title >USER: {{user}}</ion-title>
+      <h2 >NO RULA BIEN EL CHEQUEO Y PONER BALANCE DE USER AQUI</h2>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">user</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-card *ngFor="let prestamo of listaPrestamos; let i = index">
-    <ion-card-content  >
-      <ion-list>
-        <ion-item class = "small-item">
-          <ion-label>Cantidad</ion-label>
-          <ion-note>{{ prestamo.cantidad.toString() }}</ion-note>
-        </ion-item>
+<ion-content [fullscreen]="true" class = "ion-text-center" >
+  <!-- Primera fila -->
+  <ion-row class = "ion-text-center ion-justify-content-center ion-margin">
+    <ion-header class="ion-padding-bottom">
+        <ion-title>OFERTAS DE PRÉSTAMOS</ion-title>
+    </ion-header>
+    <ion-col *ngFor="let prestamo of listaPrestamos;" size="3.1"  >
+      <ion-card >
+        <ion-card-content >
+          <ion-list >
 
-        <ion-item class = "small-item">
-          <ion-label>Cuotas</ion-label>
-          <ion-note>{{ prestamo.cuotas.toString() }}</ion-note>
-        </ion-item>
+            <ion-item >
+              <ion-label  class = "ion-text-center" >Cantidad: {{ prestamo.cantidad.toString() }}</ion-label>
+            </ion-item>
+    
+            <ion-item >
+              <ion-label class = "ion-text-center" >Cuotas: {{ prestamo.cuotas.toString() }} </ion-label>
+            </ion-item>
+    
+            <ion-item >
+              <ion-label class = "ion-text-center">Deuda Total: {{ prestamo.deudaTotal.toString() }}</ion-label>
+            </ion-item>
+    
+            <ion-item>
+              <ion-label class = "ion-text-center">Penalización por Impago: {{ prestamo.penalizacionImpago.toString() }}%</ion-label>
+            </ion-item>
+    
+            <ion-item >
+              <ion-label class = "ion-text-center">Porcentaje de Interés: {{ prestamo.porcentajeInteres.toString() }}%</ion-label>
+            </ion-item>
+          </ion-list>
+          <ion-button (click)="contratarPrestamo(prestamo.index)">CONTRATAR</ion-button>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
 
-        <ion-item class = "small-item">
-          <ion-label>Deuda Total</ion-label>
-          <ion-note>{{ prestamo.deudaTotal.toString() }}</ion-note>
-        </ion-item>
-
-        <ion-item class = "small-item">
-          <ion-label>Índice</ion-label>
-          <ion-note>{{ prestamo.index.toString() }}</ion-note>
-        </ion-item>
-
-        <ion-item class = "small-item">
-          <ion-label>Penalización por Impago</ion-label>
-          <ion-note>{{ prestamo.penalizacionImpago.toString() }}</ion-note>
-        </ion-item>
-
-        <ion-item class = "small-item">
-          <ion-label>Porcentaje de Interés</ion-label>
-          <ion-note>{{ prestamo.porcentajeInteres.toString() }}</ion-note>
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-
-    <ion-button class = "small-item">
-      <ion-button expand="full" (click)="contratarPrestamo()">CONTRATAR</ion-button>
-    </ion-button>
-  </ion-card>
-  <ion-button expand="full" (click)="logOut()">LOG OUT</ion-button>
+  <!-- Segunda fila -->
+  <ion-row>
+    <ion-header class="ion-text-center ion-margin">
+      <ion-title>PRESTAMOS CONTRATADOS</ion-title>
+    </ion-header>
+    <ion-col *ngFor="let prestamo of listaContratados;" size="3.1"  >
+      <ion-card >
+        <ion-card-content >
+          <ion-list >
+            <ion-item >
+              <ion-label  class = "ion-text-center" >Deuda Restante: {{ prestamo._deudaRestante.toString() }}</ion-label>
+            </ion-item>
+    
+            <ion-item >
+              <ion-label class = "ion-text-center" >Cuotas Restantes: {{ prestamo._cuotasRestantes.toString() }} </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label class = "ion-text-center">Penalización por Impago: {{ prestamo._penalizacionImpago.toString() }}%</ion-label>
+            </ion-item>
+              <!-- pasar a date al recibir la info-->
+            <ion-item >
+              <ion-label class = "ion-text-center">UltimoPlazo: {{ prestamo._ultimoCheckeo.toString() }}</ion-label>
+            </ion-item>
+          </ion-list>
+          <ion-button (click)="contratarPrestamo(prestamo.index)">PAGAR PLAZO</ion-button>
+        </ion-card-content>
+        
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row class="ion-justify-content-center">
+    <ion-col size="4">
+      <ion-button expand="block" (click)="logOut()">LOG OUT</ion-button>
+    </ion-col>
+  </ion-row>
   
 </ion-content>

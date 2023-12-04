@@ -1,19 +1,18 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>ADMIN</ion-title>
-  </ion-toolbar>
+  <ion-toolbar class="ion-text-center ">
+    <ion-title >ADMIN: {{admin}}</ion-title>
+</ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-text-center">
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Define un nuevo préstamo</ion-card-title>
-    </ion-card-header>
-
-    
-      <form [formGroup]="definirForm" (ngSubmit)="definirPrestamo(definirForm.value)">
-
+  <ion-row class = "ion-text-center ion-margin">
+    <ion-col size="3">
+      <ion-header class="ion-padding-bottom">
+        <ion-title class="ion-text-center">Define un nuevo préstamo</ion-title>
+      </ion-header>
+      
+      <form [formGroup]="definirForm" (ngSubmit)="definirPrestamo(definirForm.value)" class="ion-margin">
         <ion-item >
           <ion-label position="floating">Porcentaje Interes</ion-label>
           <ion-input formControlName="porcentajeInteres"></ion-input>
@@ -32,14 +31,52 @@
         </ion-item>
         <ion-button expand="block" type="submit">Definir</ion-button>
       </form>
+    </ion-col>
+  </ion-row>  
+
+  <ion-row  class = " ion-margin ion-align-items-center ion-justify-content-center">
+    <ion-col size="4">
+      <form class="ion-margin" [formGroup]="invertirForm" (ngSubmit)="invertir(invertirForm.value)">
+        <ion-item >
+          <ion-row class = "ion-align-items-center ">
+            <ion-col size="6">
+              <ion-label position="floating">Invierte wei:</ion-label>
+              <ion-input formControlName="amount"></ion-input>
+            </ion-col>
+            <ion-col size="6" >
+              <ion-button expand="block" type="submit">Invertir</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-item> 
+      </form>
+      <ion-item class="ion-margin">
+        <ion-text> BALANCE: {{balance}}  </ion-text>
+      </ion-item>
+    </ion-col>
+
+    <ion-col size="4">
+      <form class="ion-margin" [formGroup]="recogerForm" (ngSubmit)="recogerFondos(recogerForm.value)">
+        <ion-item >
+          <ion-row class = "ion-align-items-center">
+            <ion-col size="6">
+              <ion-label position="floating">Recoge wei:</ion-label>
+            <ion-input formControlName="amount"></ion-input>
+            </ion-col>
+            <ion-col size="6">
+              <ion-button expand="block" type="submit">Recoger Fondos</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+      </form>
+    
+      <ion-button class="ion-margin" (click)="checkeoMensual()" expand="block">Checkeo mensual</ion-button> 
+    </ion-col>
+
+    <ion-col size="4">
+      <ion-button (click)="logOut()" expand="block">LOG OUT</ion-button>
+    </ion-col>
+
+  </ion-row>
     
 
-
-
-</ion-card>
-
-
- 
-
-<ion-button expand="full" (click)="logOut()">LOG OUT</ion-button>
 </ion-content>

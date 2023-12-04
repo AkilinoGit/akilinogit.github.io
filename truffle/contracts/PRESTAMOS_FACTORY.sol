@@ -1,7 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.8.0 <0.9.0;
-
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+//SafeMath.sol no aparece con npm install, importado manualmente 
 contract PrestamosFactory {
+
+    using SafeMath for uint256;
 
     //ENTRE ELEGIR MAPPING Y ARRAY SE TIENE QUE DECIDIR EN TIEMPOR DE EJECUION SEGUN COSTE O POSIBLIDAD DE EXCEDER LÍMITE DE TIEMPO
     //(COMENTAR EN ALGÚN LADO Y ELEGIR CUALQUIERA)
@@ -14,11 +17,11 @@ contract PrestamosFactory {
 
     struct TipoContrato {
         uint256 index;
-        uint8 porcentajeInteres; 
+        uint256 porcentajeInteres; 
         uint256 cantidad; 
         uint256 deudaTotal;
-        uint8 cuotas;
-        uint8 penalizacionImpago;
+        uint256 cuotas;
+        uint256 penalizacionImpago;
     }
     
     event PrestamoDefinido(TipoContrato tipoContrato);
@@ -40,6 +43,11 @@ contract PrestamosFactory {
 
     function invertir() public payable {
         emit FondosRecibidos(msg.sender, msg.value);
+    }
+
+    function getBalance() public view onlyOwner returns(uint256) {
+    
+        return address(this).balance;
     }
 
     function recolectarFondos(uint256 amount) public  onlyOwner {
@@ -65,7 +73,7 @@ contract PrestamosFactory {
         require(_porcentajeInteres >= 0 && _porcentajeInteres <= 100, "El interes tiene que ser un porcentaje");
 
 
-        uint256 _deudaTotal = _cantidad * (_porcentajeInteres / 100);
+        uint256 _deudaTotal = _cantidad + _cantidad.mul(_porcentajeInteres).div(100);
 
         TipoContrato memory nuevoPrestamo = TipoContrato({
             index: 0 ,
@@ -134,18 +142,33 @@ contract PrestamosFactory {
 
 contract PrestamoCursando {
 
+    using SafeMath for uint256;
+
     uint index;
     enum State { PAGADO, ABIERTO, FINALIZADO }
     State state;
     address prestatario;
     address entidadFinanciera;
     address payable prestamosFactory;
-    uint8 cuotasRestantes;
+    uint256 cuotasRestantes;
     uint256 cantidadPrestada;
     uint256 deudaRestante;
     uint256 cuotaMensual;
-    uint8 penalizacion;
+    uint256 penalizacion;
     uint256 ultimoCheckeo;
+
+    struct InfoContrato {
+        address _direccion;
+        uint256 _index;
+        address _prestatario;
+        State _state;
+        uint256 _cantidadPrestada; 
+        uint256 _deudaRestante;
+        uint256 _cuotaMensual;
+        uint256 _cuotasRestantes;
+        uint256 _penalizacionImpago;
+        uint256 _ultimoCheckeo;
+    }
 
     //2592000000 = 1 MES;
     uint256 public constant PLAZO = 30000;
@@ -165,7 +188,7 @@ contract PrestamoCursando {
         _;
     }
 
-    constructor(uint256 _index, address _prestatario, address _entidad, uint8 _cuotasRestantes, uint256 _cantidad, uint256 _deudaTotal, uint8 _penalizacion){
+    constructor(uint256 _index, address _prestatario, address _entidad, uint256 _cuotasRestantes, uint256 _cantidad, uint256 _deudaTotal, uint256 _penalizacion){
         index = _index;
         state = State.ABIERTO;
         prestatario = _prestatario;
@@ -179,12 +202,30 @@ contract PrestamoCursando {
         ultimoCheckeo = block.timestamp;
     }
 
+    function mostrarInfo() external view returns (InfoContrato memory){
+        InfoContrato memory infoContrato = InfoContrato({
+            _direccion: address(this),
+            _index: index,
+            _prestatario: prestatario,
+            _state: state,
+            _cantidadPrestada: cantidadPrestada,
+            _deudaRestante: deudaRestante,
+            _cuotaMensual: cuotaMensual,
+            _cuotasRestantes: cuotasRestantes,
+            _penalizacionImpago: penalizacion,
+            _ultimoCheckeo: ultimoCheckeo
+        });
+    
+        return infoContrato;
+    }
+
+
     function setIndex(uint _index) external onlyContractFactory {
         index = _index;
     }
 
     function calculoCuotaMensual() private view returns (uint256){
-        return deudaRestante / cuotasRestantes;
+        return deudaRestante.div(cuotasRestantes);
     }
 
     function checkeoMensual() onlyFinancialEntity hasBeenOneMonth public {
@@ -206,7 +247,7 @@ contract PrestamoCursando {
 
     //Numero de cuotas se mantiene
     function penalizarPrestamo() private {
-        deudaRestante += deudaRestante * penalizacion / 100; 
+        deudaRestante += deudaRestante.mul(penalizacion).div(100); 
         cuotaMensual = calculoCuotaMensual();
     }
 
