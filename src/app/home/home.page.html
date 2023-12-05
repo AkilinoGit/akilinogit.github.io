@@ -1,27 +1,20 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Loguéate PRUEBA GIT
+  <ion-toolbar class="ion-text-center">
+    <ion-title >
+      PRESTAMOS FACTORY
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
   </ion-header>
+  
+    <h1 class="ion-text-center ion-margin">BIENVENIDO!</h1>
+ 
 
-  <div id="container">
-    <strong>Ready to fuck?</strong>
-    <p>Nobody does it better <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">Naugthy America</a></p>
-  </div>
-
-  <div>
-    <ul>
-      <li routerLink = '/admin' style= "color: blue; cursor: pointer; list-style: none;"> ADMIN</li>
-    </ul>
-    <ul>
-      <li routerLink = '/user' style= "color: blue; cursor: pointer; list-style: none;"> USER</li>
-    </ul>
-    <ion-button expand="full" (click)="loginMetamask()">Iniciar sesión con MetaMask</ion-button>
+  <div class="ion-text-center ion-margin">
+    <ion-button  expand="content" (click)="loginMetamask()">Iniciar sesión con MetaMask</ion-button>
   </div>
 </ion-content>
