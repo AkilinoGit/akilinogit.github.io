@@ -16,15 +16,21 @@ import {ABI as PRESTAMOCURSANDO} from 'src/app/abiPrestamos';
 export class AdminPage  {
 
   web3: any;
-  factoryContract: any;
   window:any;
-  definirForm: any;
-  invertirForm: any;
+
+  factoryContract: any;
   admin: any;
   balance: any;
-  recogerForm: any;
+
+  //Direcciones con préstamos en la plataforma
   clientes: any;
+  //Relaciona una dirección cliente con sus la información de sus préstamos contratados
   prestamosCursando: { [key: string]: any[] } = {};
+
+  definirForm: any;
+  invertirForm: any;
+  recogerForm: any;
+ 
 
  
 
@@ -61,9 +67,11 @@ export class AdminPage  {
   }
 
   async ngOnInit() {
+    //Evita que un usario sin acceso de administrador entre en la web de admin
     if (localStorage.getItem('userAddress') !== this.authService.OWNER) {
       this.window.location.href = "/home";
     } 
+
     this.balance = await this.factoryContract.methods.getBalance().call({ from: localStorage.getItem('userAddress')});
     this.clientes = await this.factoryContract.methods.getClientes().call({ from: localStorage.getItem('userAddress')});
     await this.iniciarVistaContratados();
@@ -76,12 +84,13 @@ export class AdminPage  {
     var amount = this.web3.utils.toHex(parseInt(sendData.amount));
     this.txService.makeTransaction(this.authService.FACTORY,amount,method);
   }
+
   recogerFondos(sendData: any) {
     var method =  this.factoryContract.methods.recolectarFondos(sendData.amount).encodeABI();
     this.txService.makeTransaction(this.authService.FACTORY,0,method);
-
   }
 
+  //
   async iniciarVistaContratados(){
 
     this.clientes.forEach(async (clientAddress:any) => {
@@ -99,9 +108,9 @@ export class AdminPage  {
       this.prestamosCursando[clientAddress]=prestamosUsuario;
 
     });
-    
-    
   }
+
+// Control del estado de pago de cada préstamo, en el SC el plazo de "mes" está simulado por unos segundos
  async  checkeoMensual(){
   this.clientes.forEach(async (cliente: any) => {
     this.prestamosCursando[cliente].forEach(async (prestamo:any) => {
@@ -114,7 +123,7 @@ export class AdminPage  {
   
   }
   
-
+//Crea un nuevo tipo de préstamo para ser contratado
   definirPrestamo( sendData: any){
    var method = this.factoryContract.methods.definirPrestamo(sendData.porcentajeInteres,
               sendData.cantidad, sendData.cuotas, sendData.penalizacionImpago).encodeABI();
@@ -122,6 +131,7 @@ export class AdminPage  {
     this.txService.makeTransaction(this.authService.FACTORY,0,method);
   }
 
+  //Traduce los segundos de block.timeStamp a un String con la fecha de cierre del plazo de pago
   secondsToDateString(big: BigInt){
     var stringNum = big.toString();
   

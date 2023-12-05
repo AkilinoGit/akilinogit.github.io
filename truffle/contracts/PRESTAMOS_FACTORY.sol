@@ -6,12 +6,10 @@ contract PrestamosFactory {
 
     using SafeMath for uint256;
 
-    //ENTRE ELEGIR MAPPING Y ARRAY SE TIENE QUE DECIDIR EN TIEMPOR DE EJECUION SEGUN COSTE O POSIBLIDAD DE EXCEDER LÍMITE DE TIEMPO
-    //(COMENTAR EN ALGÚN LADO Y ELEGIR CUALQUIERA)
-
     address payable private owner;
+    //Posibles prestamos a contratar
     TipoContrato[] tiposContrato;
-
+    
     mapping(address => PrestamoCursando[])  prestamosCursando;
     address[] clientes;
 
@@ -89,7 +87,7 @@ contract PrestamosFactory {
         });
 
         tiposContrato.push(nuevoPrestamo);
-        //Guardo el index dentro del Objeto préstamo para mayor facilidad de acceso desde web3
+        //Guardo el index dentro del Objeto préstamo para mayor facilidad de acceso 
         tiposContrato[tiposContrato.length - 1].index = tiposContrato.length-1;
         emit PrestamoDefinido(nuevoPrestamo);
     
@@ -111,6 +109,7 @@ contract PrestamosFactory {
         }
         //Guardo index para faciltar acceso
         uint256 _indexNuevoPrestamo = prestamosCursando[_prestatario].length;
+        // Genero un nuevo contrato Prestamo asociado a la dirección msg.sender
         PrestamoCursando newPrestamo = new PrestamoCursando(_indexNuevoPrestamo, _prestatario, owner, tipoPrestamo.cuotas, tipoPrestamo.cantidad,
                                                             tipoPrestamo.deudaTotal, tipoPrestamo.penalizacionImpago);
 
@@ -280,6 +279,7 @@ contract PrestamoCursando {
         deudaRestante -= cuotaMensual;
         cuotasRestantes--;
 
+       
         if(cuotasRestantes == 1){
             cuotaMensual = calculoCuotaMensual();
          }

@@ -23,6 +23,7 @@ export class TxServiceService {
     await this.signAndSendTransaction(await this.buildTransaction(_to, _value, _data));
   }
 
+//Hace una transacción y espera al minado para obtener lo que retorne la función del SC
   async makeAndWaitTransaction(_to:String, _value:any, _data:any){
     var transactionHash = await this.signAndSendTransaction(await this.buildTransaction(_to, _value, _data));
     return await this.esperarMinado(transactionHash);

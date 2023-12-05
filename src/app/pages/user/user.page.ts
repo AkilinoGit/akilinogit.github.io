@@ -17,8 +17,11 @@ export class UserPage implements OnInit {
   window: any;
   web3: any;
   factoryContract: any;
-  listaPrestamos: any;
+  //Lista de posbles préstamos a contratar
+  listaPrestamos: any; 
+  //Lista de las direcciones de los préstamos contratados
   direccionesContratados: any;
+  //Información de los préstamos contratados
   listaContratados: any[] = [];
   user: any;
   balance: any;
@@ -40,6 +43,7 @@ export class UserPage implements OnInit {
   
   }
 
+  //Recoge la información del estado de los préstamos contratados del SC
   async iniciarVistaContratados(){
    this.direccionesContratados = await this.factoryContract.methods
        .verContratos(localStorage.getItem('userAddress'))
