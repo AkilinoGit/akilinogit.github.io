@@ -12,7 +12,7 @@ contract PrestamosFactory {
     address payable private owner;
     TipoContrato[] tiposContrato;
 
-    mapping(address => PrestamoCursando[]) public prestamosCursando;
+    mapping(address => PrestamoCursando[])  prestamosCursando;
     address[] clientes;
 
     struct TipoContrato {
@@ -48,6 +48,10 @@ contract PrestamosFactory {
     function getBalance() public view onlyOwner returns(uint256) {
     
         return address(this).balance;
+    }
+    function getClientes() public view onlyOwner  returns(address[] memory) {
+        return clientes;
+
     }
 
     function recolectarFondos(uint256 amount) public  onlyOwner {
@@ -170,8 +174,8 @@ contract PrestamoCursando {
         uint256 _ultimoCheckeo;
     }
 
-    //2592000000 = 1 MES;
-    uint256 public constant PLAZO = 30000;
+    //2629800 = 1 MES;
+    uint256 public constant PLAZO = 10;
 
     modifier onlyFinancialEntity() {
         require(entidadFinanciera == msg.sender,"Only financial entity");
@@ -225,7 +229,16 @@ contract PrestamoCursando {
     }
 
     function calculoCuotaMensual() private view returns (uint256){
-        return deudaRestante.div(cuotasRestantes);
+        //Debido a problemas con el tratamiento de decimales de solidity puede resultar el caso que
+        // deudarestante/cuotasrestantes no de un numero entero
+        //Esto implica que quede deuda despues de pagar todas las cuotas por lo que este resto se añade a la cuota final
+        if(cuotasRestantes == 1) {
+            return  deudaRestante;
+            }
+        else {
+            return deudaRestante.div(cuotasRestantes);
+        }
+       
     }
 
     function checkeoMensual() onlyFinancialEntity hasBeenOneMonth public {
@@ -239,6 +252,9 @@ contract PrestamoCursando {
         else if (state == State.FINALIZADO){
             eliminarContratoFinalizado();
         }
+
+        ultimoCheckeo = block.timestamp;
+  
     }
 
     function eliminarContratoFinalizado() private {
@@ -259,14 +275,20 @@ contract PrestamoCursando {
         require(msg.sender == prestatario, "Only borrower");
         require(msg.value == cuotaMensual, "Send exact debt value");
         require(state == State.ABIERTO, "Payment period not open");
+       
+        state = State.PAGADO;
+        deudaRestante -= cuotaMensual;
+        cuotasRestantes--;
+
+        if(cuotasRestantes == 1){
+            cuotaMensual = calculoCuotaMensual();
+         }
+
         if(cuotasRestantes == 0){
-            state = State.FINALIZADO;
+         state = State.FINALIZADO;
         }
-        else {
-            state = State.PAGADO;
-            deudaRestante -= cuotaMensual;
-        }
-        transferirFondosAFactory(cuotaMensual);
+        transferirFondosAFactory(msg.value);
+        
     }
 
     //Por seguridad se pone a public para evitar fondos bloqueados en este contrato.

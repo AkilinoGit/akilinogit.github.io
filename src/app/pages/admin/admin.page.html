@@ -7,7 +7,7 @@
 <ion-content [fullscreen]="true" class="ion-text-center">
 
   <ion-row class = "ion-text-center ion-margin">
-    <ion-col size="3">
+    <ion-col size="4">
       <ion-header class="ion-padding-bottom">
         <ion-title class="ion-text-center">Define un nuevo préstamo</ion-title>
       </ion-header>
@@ -31,6 +31,49 @@
         </ion-item>
         <ion-button expand="block" type="submit">Definir</ion-button>
       </form>
+    </ion-col>
+    <ion-col size="8">
+
+      <ion-header class="ion-padding-bottom">
+        <ion-title class="ion-text-center">Prestamos en curso</ion-title>
+      </ion-header>
+     
+      <div class="scrollable-content">
+      <ion-row *ngFor="let user of prestamosCursando | keyvalue;" >
+        <ion-header class="ion-margin ion-padding ion-align-items-center">
+          <ion-title class="ion-text-center">User: {{user.key}}</ion-title>
+        </ion-header>
+        <ion-col *ngFor="let prestamo of user.value;" size="3.1">
+          <ion-item >
+            <ion-label  class = "ion-text-center " >
+              <h2>Estado:</h2>
+             <ion-text> {{ prestamo._state.toString() }}</ion-text>
+            </ion-label>
+          </ion-item>
+
+          <ion-item >
+            <ion-label  class = "ion-text-center" >
+              <h2>Deuda Restante:</h2> 
+              <ion-text> {{ prestamo._deudaRestante.toString() }}</ion-text>
+            </ion-label>
+          </ion-item>
+  
+          <ion-item >
+            <ion-label class = "ion-text-center" >
+              <h2>Cuotas Restantes:</h2> 
+              <ion-text>{{ prestamo._cuotasRestantes.toString() }}</ion-text> 
+            </ion-label>
+          </ion-item>
+
+
+
+     
+  
+
+        </ion-col>
+      </ion-row>
+     
+      </div>
     </ion-col>
   </ion-row>  
 

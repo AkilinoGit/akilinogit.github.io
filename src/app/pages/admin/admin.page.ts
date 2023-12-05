@@ -6,7 +6,7 @@ import { Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {ABI as FACTORYABI} from 'src/app/abiFactory';
-import { send } from 'process';
+import {ABI as PRESTAMOCURSANDO} from 'src/app/abiPrestamos';
 
 @Component({
   selector: 'app-admin',
@@ -23,7 +23,10 @@ export class AdminPage  {
   admin: any;
   balance: any;
   recogerForm: any;
-  AKIbalance: any;
+  clientes: any;
+  prestamosCursando: { [key: string]: any[] } = {};
+
+ 
 
 
   constructor(@Inject(DOCUMENT) private document: Document,
@@ -41,7 +44,7 @@ export class AdminPage  {
     this.definirForm = formBuilder.group({
       porcentajeInteres: "10",
       cantidad: "1000",
-      cuotas: "10",
+      cuotas: "3",
       penalizacionImpago: "10"
     });
 
@@ -62,8 +65,8 @@ export class AdminPage  {
       this.window.location.href = "/home";
     } 
     this.balance = await this.factoryContract.methods.getBalance().call({ from: localStorage.getItem('userAddress')});
-    this.AKIbalance = await this.web3.eth.getBalance(this.authService.OWNER);
-    
+    this.clientes = await this.factoryContract.methods.getClientes().call({ from: localStorage.getItem('userAddress')});
+    await this.iniciarVistaContratados();
   }
 
   invertir(sendData : any) {
@@ -78,8 +81,37 @@ export class AdminPage  {
     this.txService.makeTransaction(this.authService.FACTORY,0,method);
 
   }
-  checkeoMensual(){
 
+  async iniciarVistaContratados(){
+
+    this.clientes.forEach(async (clientAddress:any) => {
+      var direccionesCursando =  await this.factoryContract.methods.verContratos(clientAddress)
+        .call({ from: localStorage.getItem('userAddress')});
+      var prestamosUsuario : any[] = [];
+      direccionesCursando.forEach(async (direccionCursando: any) => {
+        var contratoCursando = await new this.web3.eth.Contract(PRESTAMOCURSANDO.abi, direccionCursando);
+        var contratado =  await contratoCursando.methods.mostrarInfo().call();
+        contratado._ultimoCheckeo = this.secondsToDateString(contratado._ultimoCheckeo);
+        prestamosUsuario.push(contratado); 
+        console.log(prestamosUsuario);
+      })
+
+      this.prestamosCursando[clientAddress]=prestamosUsuario;
+
+    });
+    
+    
+  }
+ async  checkeoMensual(){
+  this.clientes.forEach(async (cliente: any) => {
+    this.prestamosCursando[cliente].forEach(async (prestamo:any) => {
+      var prestamoCursando = await new this.web3.eth.Contract(PRESTAMOCURSANDO.abi, prestamo._direccion);
+      var method = prestamoCursando.methods.checkeoMensual().encodeABI();
+      this.txService.makeTransaction(prestamo._direccion,0,method);
+    });
+
+  });
+  
   }
   
 
@@ -88,6 +120,19 @@ export class AdminPage  {
               sendData.cantidad, sendData.cuotas, sendData.penalizacionImpago).encodeABI();
   
     this.txService.makeTransaction(this.authService.FACTORY,0,method);
+  }
+
+  secondsToDateString(big: BigInt){
+    var stringNum = big.toString();
+  
+    var numberNum = Number(stringNum) * 1000;
+    
+    var nextCheckDate= new Date(numberNum);
+    nextCheckDate.setMonth(nextCheckDate.getMonth() + 1);
+    
+    var nextCheckString = nextCheckDate.getDay()+ '/'+ (nextCheckDate.getMonth() + 1 )+'/'+ nextCheckDate.getFullYear();
+    return nextCheckString;
+   
   }
   
  logOut(){
