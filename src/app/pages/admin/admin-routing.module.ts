@@ -5,7 +5,7 @@ import { AdminPage } from './admin.page';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'admin',
     component: AdminPage
   }
 ];
