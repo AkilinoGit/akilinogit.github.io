@@ -16,7 +16,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/admin/admin.module').then( m => m.AdminPageModule)
   },
   {
-    path: '*',
+    path: '**',
     redirectTo: 'home',
     pathMatch: 'full'
 },
