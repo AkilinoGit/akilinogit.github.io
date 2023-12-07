@@ -71,6 +71,7 @@ export class AdminPage  {
     if (localStorage.getItem('userAddress') !== this.authService.OWNER) {
       this.window.location.href = "/home";
     } 
+  
 
     this.balance = await this.factoryContract.methods.getBalance().call({ from: localStorage.getItem('userAddress')});
     this.clientes = await this.factoryContract.methods.getClientes().call({ from: localStorage.getItem('userAddress')});

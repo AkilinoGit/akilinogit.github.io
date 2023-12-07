@@ -20,7 +20,7 @@ export class HomePage {
  async loginMetamask() {
     await this.authService.loginMetamask();
     const redirectUrl = this.redirectUrl(localStorage.getItem('userAddress'));
-    window.location.href = redirectUrl;
+    this.window.location.href = redirectUrl;
   }
 
   private redirectUrl(userAddress: string | null): string {

@@ -15,11 +15,7 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: () => import('./pages/admin/admin.module').then( m => m.AdminPageModule)
   },
-  {
-    path: '**',
-    redirectTo: 'home',
-    pathMatch: 'full'
-},
+
   {
     path: 'user',
     loadChildren: () => import('./pages/user/user.module').then( m => m.UserPageModule)
