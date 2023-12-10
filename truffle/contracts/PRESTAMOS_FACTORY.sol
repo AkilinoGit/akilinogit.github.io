@@ -187,7 +187,7 @@ contract PrestamoCursando {
     }
 
     modifier hasBeenOneMonth() {
-        require(block.timestamp - ultimoCheckeo >= PLAZO );
+        require(block.timestamp - ultimoCheckeo >= PLAZO, "Deadline has not yet expired" );
         _;
     }
 

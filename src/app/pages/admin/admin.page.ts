@@ -102,6 +102,7 @@ export class AdminPage  {
         var contratoCursando = await new this.web3.eth.Contract(PRESTAMOCURSANDO.abi, direccionCursando);
         var contratado =  await contratoCursando.methods.mostrarInfo().call();
         contratado._ultimoCheckeo = this.secondsToDateString(contratado._ultimoCheckeo);
+        contratado._state = this.contratoStateToString(contratado._state);
         prestamosUsuario.push(contratado); 
         console.log(prestamosUsuario);
       })
@@ -144,6 +145,16 @@ export class AdminPage  {
     var nextCheckString = nextCheckDate.getDay()+ '/'+ (nextCheckDate.getMonth() + 1 )+'/'+ nextCheckDate.getFullYear();
     return nextCheckString;
    
+  }
+
+  contratoStateToString(estado: number){
+    if(estado == 0){
+      return "CUOTA PAGADA";
+    } else if (estado == 1) {
+      return "PLAZO ABIERTO";
+    } else {
+      return "FINALIZADO";
+    }
   }
   
  logOut(){
