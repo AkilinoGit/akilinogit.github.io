@@ -100,7 +100,7 @@ export class AdminPage  {
       var prestamosUsuario : any[] = [];
       direccionesCursando.forEach(async (direccionCursando: any) => {
         var contratoCursando = await new this.web3.eth.Contract(PRESTAMOCURSANDO.abi, direccionCursando);
-        var contratado =  await contratoCursando.methods.mostrarInfo().call();
+        var contratado =  await contratoCursando.methods.mostrarInfo().call({from: localStorage.getItem('userAddress')});
         contratado._ultimoCheckeo = this.secondsToDateString(contratado._ultimoCheckeo);
         contratado._state = this.contratoStateToString(contratado._state);
         prestamosUsuario.push(contratado); 
