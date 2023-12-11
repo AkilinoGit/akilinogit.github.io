@@ -10,7 +10,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "echo 'test en otro proyecto debido a conflictos con la versión de web3 entre la clase de Oriol y este proyecto'",
     "lint": "ng lint",
-    "deploy": "ionic build --prod  --base-href=https://akilinogit.github.io/prestamosfactory/ && npx gh-pages -d www"
+    "deploy": "ionic build --prod   --base-href https://akilinogit.github.io/ && npx ngh --dir=www"
   },
   "private": true,
   "dependencies": {
