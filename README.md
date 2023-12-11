@@ -1,4 +1,5 @@
-#                                                             DOCUMENTANCION DE DESARROLLO DE PRESTAMOS FACTORY
+#                                                              PRESTAMOS FACTORY
+##                                                            DOCUMENTANCION DEL DESARROLLO 
 ## 1. ARCHIVOS CON CÓDIGO DESARROLLADO:
   - https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/auth-service.service.ts<br>
       Control de Login y guardado de direcciones de OWNER Y CONTRACT FACTORY
