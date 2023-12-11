@@ -51,7 +51,7 @@ export class UserPage implements OnInit {
 
     this.direccionesContratados.forEach(async (direccion: any) => {
       var prestamoCursando = new this.web3.eth.Contract(PRESTAMOCURSANDO.abi, direccion);
-      var contratado = await prestamoCursando.methods.mostrarInfo({from: localStorage.getItem('userAddress')}).call();
+      var contratado = await prestamoCursando.methods.mostrarInfo().call({from: localStorage.getItem('userAddress')});
       contratado._ultimoCheckeo = this.secondsToDateString(contratado._ultimoCheckeo);
       contratado._state = this.contratoStateToString(contratado._state);
       this.listaContratados.push(contratado);
