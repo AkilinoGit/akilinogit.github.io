@@ -1,4 +1,4 @@
-# <pre>              PRESTAMOS FACTORY<br>               DOCUMENTACION DEL DESARROLLO  
+# <pre>              PRESTAMOS FACTORY<br>          DOCUMENTACION DEL DESARROLLO  
                      
 ## 1. ARCHIVOS CON CÓDIGO DESARROLLADO:
   - https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/auth-service.service.ts<br>
