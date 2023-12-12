@@ -1,4 +1,5 @@
 # <pre>             PRESTAMOS FACTORY<br>        DOCUMENTACION DEL DESARROLLO  
+La arquitectura del proyecto sería un MODELO(Red BlockChain),VISTA(HTML),CONTROLADOR(TypeScript)
                      
 ## 1. ARCHIVOS DAPP:
 ## <pre>             SERVICIOS
@@ -37,6 +38,11 @@ Contrato encargado de generar contratos del tipo "Prestamos Curando" de asignarl
 
 La manera de eliminiar un contrato es mandandolo al final del array de contratos y hacer "POP" es óptimo pero al final he
 descubierto una posible brecha a la hora de cambiar el index del contrato en el Contrato hijo.
+
+Como desde la Dapp se inicia el checkeo mensual de todos los contratos a la vez, el plazo del primer plazo realmente es:
+  Tiempo restante al siguiente plazo(No cumple el require de que haya pasado el plazo)
+  +
+  Tiempo de plazo
 
 
 ## <pre>             PRESTAMO EN CURSO 
