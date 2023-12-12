@@ -20,7 +20,7 @@
       Llamadas a funciones del Smart Contract, inicializa recogiendo la información de los contratos cursando
       en la Red
 
-  - https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/pages/user/user.page.ts
-  -[LINK] https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/pages/user/user.page.html
+  - [LINK](https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/pages/user/user.page.ts)
+  - [LINK]https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/pages/user/user.page.html
   
     
