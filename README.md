@@ -29,7 +29,7 @@ USER
 ## 2. SMART CONTRACTS:
 [PRESTAMOS_FACTORY.sol](https://github.com/AkilinoGit/akilinogit.github.io/blob/master/truffle/contracts/PRESTAMOS_FACTORY.sol)
 <pre>  SafeMath.sol Ha sido importado manualmente ya que npm install no descarga este contrato (Facil acceso en REMIX)</pre>
-<pre>  Se ha utilizado truffle para la compilación de contratos y tener a a mano los ABI de los contratos 
+<pre>  Se ha utilizado truffle para la compilación de contratos y tener a a mano los ABI de los contratos </pre>
 ## <pre>             CONTRACT FACTORY  <\pre>
 Contrato encargado de generar contratos del tipo "Prestamos Curando" de asignarlos con un cliente y administrarlos
 
