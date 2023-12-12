@@ -1,6 +1,7 @@
 # <pre>             PRESTAMOS FACTORY<br>        DOCUMENTACION DEL DESARROLLO  
-La arquitectura del proyecto sería un MODELO(Red BlockChain),VISTA(HTML),CONTROLADOR(TypeScript)
-                     
+La arquitectura del proyecto sería un MODELO(Red BlockChain),VISTA(Html),CONTROLADOR(TypeScript)
+El framewor utilizado para el desarrollo de la DApp es Ionic(angular)
+                    
 ## 1. ARCHIVOS DAPP:
 ## <pre>             SERVICIOS
   - [auth-service.service.ts](https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/auth-service.service.ts)<br>
