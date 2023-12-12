@@ -2,25 +2,29 @@
                      
 ## 1. ARCHIVOS DAPP:
 ## <pre>             SERVICIOS
-  - https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/auth-service.service.ts<br>
+  - [auth-service.service.ts](https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/auth-service.service.ts)<br>
       Control de Login y guardado de direcciones de OWNER Y CONTRACT FACTORY
-  - https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/tx-service.service.ts<br>
+  - [tx-service.service.ts](https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/tx-service.service.ts)<br>
       Servicio para automatizar la realización de transacciones<br> 
       Las funciones "contratoStateToString" y "secondsToDateString" deberían haberse guardado en
       un servicio "Utils" para evitar duplicado de código.
 
 ## <pre>             PAGINAS HTML Y TYPESCRIPT
-  - https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/home/home.page.html
-  - https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/home/home.page.ts
-      Pagina inicial: redireccionamiento a pagina admin/user almacenamiento userAddress
-    
-  - https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/pages/admin/admin.page.ts
-  - https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/pages/admin/admin.page.html
-  - https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/pages/admin/admin.page.scss
-      Llamadas a funciones del Smart Contract, inicializa recogiendo la información de los contratos cursando
-      en la Red
+Pagina inicial: redireccionamiento a pagina admin/user almacenamiento userAddress)
+  - [home.page.html](https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/home/home.page.html)
+  - [home.page.ts](https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/home/home.page.ts)
 
-  - [LINK](https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/pages/user/user.page.ts)
-  - [LINK]https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/pages/user/user.page.html
+Los siguientes archivos se encargan de hacer las llamadas al SC y de recoger la información de la Red<br>
+
+ADMIN
+  - [admin.page.ts](https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/pages/admin/admin.page.ts)
+  - [admin.page.html](https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/pages/admin/admin.page.html)
+  - [admin.page.scss](https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/pages/admin/admin.page.scss)
+
+USER
+      
+  - [user.page.ts](https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/pages/user/user.page.ts)
+  - [user.page.html](https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/pages/user/user.page.html)
   
     
+
