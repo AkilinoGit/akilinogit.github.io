@@ -1,6 +1,6 @@
 # <pre>             PRESTAMOS FACTORY<br>        DOCUMENTACION DEL DESARROLLO  
-La arquitectura del proyecto sería un MODELO(Red BlockChain),VISTA(Html),CONTROLADOR(TypeScript)
-El framewor utilizado para el desarrollo de la DApp es Ionic(angular)
+La arquitectura del proyecto sería un MODELO(Red BlockChain),VISTA(Html),CONTROLADOR(TypeScript)<br>
+El framework utilizado para el desarrollo de la DApp es Ionic(angular)
                     
 ## 1. ARCHIVOS DAPP:
 ## <pre>             SERVICIOS
