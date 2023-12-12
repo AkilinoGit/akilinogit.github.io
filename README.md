@@ -6,7 +6,8 @@
       Control de Login y guardado de direcciones de OWNER Y CONTRACT FACTORY
   - https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/tx-service.service.ts<br>
       Servicio para automatizar la realización de transacciones
-#### Las funciones "contratoStateToString" y "secondsToDateString" deberían haberse guardado en un servicio "Utils" para evitar duplicado de código.
+      Las funciones "contratoStateToString" y "secondsToDateString" deberían haberse guardado en
+      un servicio "Utils" para evitar duplicado de código.
 
 ##<pre>             PAGINAS HTML Y TYPESCRIPT
   - https://github.com/AkilinoGit/akilinogit.github.io/blob/master/src/app/home/home.page.html
